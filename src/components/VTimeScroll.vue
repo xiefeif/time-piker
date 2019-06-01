@@ -2,12 +2,12 @@
     <div class="scrollContent">
         <div class="wrapperLeft wrapper" ref="wrapperLeft">
             <ul class="content contentLeft">
-                <li :class="['option', {selected: hour == index}]" v-for="(i, index) of h" :key="index">{{formatTime(index)}}</li>
+                <li class="option" v-for="(i, index) of h" :key="index">{{formatTime(index)}}</li>
             </ul>
         </div>
         <div class="wrapperRight wrapper" ref="wrapperRight">
             <ul class="content contentRight">
-                <li :class="['option', {selected: minute == i}]" v-for="(i, index) of m" :key="index">{{formatTime(i)}}</li>
+                <li class="option" v-for="(i, index) of m" :key="index">{{formatTime(i)}}</li>
             </ul>
         </div>
         <span class="colon">:</span>
