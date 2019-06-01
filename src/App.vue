@@ -1,28 +1,52 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button @click="open">open</button>
+    <TimePicker @close='closePicker()' @leftBtn="left" 
+    @rightBtn="right" @badTime='badTimeTip' :isShow="isShow" :bh="8" :bm="20" :eh="10" :em="20"></TimePicker>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import TimePicker from　'./components/TimePicker'
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      isShow: true
+    }
+  },
+  methods: {
+    open() {
+      console.log('open')
+      this.isShow = true
+    },
+    left(data) {
+      console.log('left', data)
+      this.isShow = false
+    },
+    right(data) {
+      console.log('right', data)
+    },
+    badTimeTip() {
+      alert('时间不符合要求')
+    },
+    closePicker() {
+      this.isShow = false
+    }
+  },
+    components: {
+    TimePicker
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding:  0;
 }
+li {
+  list-style: none;
+}
+
 </style>
