@@ -2,12 +2,12 @@
     <div class="scrollContent">
         <div class="wrapperLeft wrapper" ref="wrapperLeft">
             <ul class="content contentLeft">
-                <li :class="['option', {selected: hour == index}]" v-for="(i, index) of h" :key="index">{{index < 10 ? "0" + index : index}}</li>
+                <li :class="['option', {selected: hour == index}]" v-for="(i, index) of h" :key="index">{{formatTime(index)}}</li>
             </ul>
         </div>
         <div class="wrapperRight wrapper" ref="wrapperRight">
             <ul class="content contentRight">
-                <li :class="['option', {selected: minute == index}]" v-for="(i, index) of m" :key="index">{{index < 10 ? "0" + index : index}}</li>
+                <li :class="['option', {selected: minute == index}]" v-for="(i, index) of m" :key="index">{{formatTime(index)}}</li>
             </ul>
         </div>
         <span class="colon">:</span>
@@ -44,39 +44,47 @@ export default {
         }
     },
     mounted() {
-        let _this = this
-        this.$nextTick(() => {
-            this.scrollLeft = new BScroll(this.$refs.wrapperLeft, {
-                scrollY: true,
-                wheel:{
-                    selectedIndex: _this.initH,
-                    rotate: 25,
-                    adjustTime: 400,
-                    wheelWrapperClass: 'wrapper',
-                    wheelItemClass: 'option'
-                }
-            })
-            this.scrollLeft.on('scrollEnd', (event) => {
-                _this.hour = this.scrollLeft.selectedIndex 
-                this.$emit('selectTime', {hour: _this.hour, minute: _this.minute})
-            })
-
-            this.scrollRight = new BScroll(this.$refs.wrapperRight, {
-                scrollY: true,
-                wheel:{
-                    selectedIndex: _this.initM,
-                    rotate: 25,
-                    adjustTime: 400,
-                    wheelWrapperClass: 'wrapper',
-                    wheelItemClass: 'option'
-                }
-            })
-            this.scrollRight.on('scrollEnd', (event) => {
-                _this.minute = this.scrollRight.selectedIndex 
-                this.$emit('selectTime', {hour: _this.hour, minute: _this.minute})
-            })
-        });
+        this.initPicker()
     },
+    methods: {
+        initPicker() {
+            let _this = this
+            this.$nextTick(() => {
+                this.scrollLeft = new BScroll(this.$refs.wrapperLeft, {
+                    scrollY: true,
+                    wheel:{
+                        selectedIndex: _this.initH,
+                        rotate: 25,
+                        adjustTime: 400,
+                        wheelWrapperClass: 'wrapper',
+                        wheelItemClass: 'option'
+                    }
+                })
+                this.scrollLeft.on('scrollEnd', () => {
+                    _this.hour = this.scrollLeft.selectedIndex 
+                    this.$emit('selectTime', {hour: _this.hour, minute: _this.minute})
+                })
+
+                this.scrollRight = new BScroll(this.$refs.wrapperRight, {
+                    scrollY: true,
+                    wheel:{
+                        selectedIndex: _this.initM,
+                        rotate: 25,
+                        adjustTime: 400,
+                        wheelWrapperClass: 'wrapper',
+                        wheelItemClass: 'option'
+                    }
+                })
+                this.scrollRight.on('scrollEnd', () => {
+                    _this.minute = this.scrollRight.selectedIndex 
+                    this.$emit('selectTime', {hour: _this.hour, minute: _this.minute})
+                })
+            });
+        },
+        formatTime(timeNum) {
+            return timeNum < 10 ? "0" + timeNum : timeNum
+        }
+    }
 }
 </script>
 
