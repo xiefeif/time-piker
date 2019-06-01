@@ -7,10 +7,12 @@
         </div>
         <div class="wrapperRight wrapper" ref="wrapperRight">
             <ul class="content contentRight">
-                <li :class="['option', {selected: minute == index}]" v-for="(i, index) of m" :key="index">{{formatTime(index)}}</li>
+                <li :class="['option', {selected: minute == i}]" v-for="(i, index) of m" :key="index">{{formatTime(i)}}</li>
             </ul>
         </div>
         <span class="colon">:</span>
+        <span class="mask-top"></span>
+        <span class="mask-bottom"></span>
     </div>
 </template>
 
@@ -24,8 +26,10 @@ export default {
             default: 24
         },
         m: {
-            type: Number,
-            default: 60
+            type: Array,
+            default: () => {
+                return [0, 30]
+            }
         },
         initH: {
             type: Number,
@@ -75,13 +79,13 @@ export default {
                     }
                 })
                 this.scrollRight.on('scrollEnd', () => {
-                    _this.minute = this.scrollRight.selectedIndex 
+                    _this.minute = _this.m[this.scrollRight.selectedIndex] 
                     this.$emit('selectTime', {hour: _this.hour, minute: _this.minute})
                 })
             });
         },
         formatTime(timeNum) {
-            return timeNum < 10 ? "0" + timeNum : timeNum
+            return timeNum < 10 ? "0" + timeNum : timeNum + ''
         }
     }
 }
@@ -102,12 +106,11 @@ export default {
         justify-content: space-around;
         overflow: hidden;
         font-size: 22px;
-        color: grey;
     }
     .wrapper {
         width: 100%;
         position: relative;
-        top: 16vh;
+        top: 14vh;
         height: 7vh;
     }
     .content {
@@ -118,18 +121,29 @@ export default {
         height: 7vh;
         line-height: 7vh;
     }
-    .selected {
-        color: black;
-    }
     .colon {
         width: 10%;
         position: absolute;
         display: block;
         font-weight: 500;
         text-align: center;
-        top: 16vh;
+        top: 14vh;
         line-height: 7vh;
         height: 7vh;
-        color: black;
+    }
+    .mask-top, .mask-bottom {
+        width: 100%;
+        height: 14vh;
+        background: linear-gradient(180deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));
+        position: absolute;
+        pointer-events: none;
+    }
+    .mask-bottom {
+        bottom: 0;
+        border-top: 1px solid rgba(37,38,45,.1);
+    }
+    .mask-top {
+        top: 0;
+        border-bottom: 1px solid rgba(37,38,45,.1);
     }
 </style>

@@ -3,7 +3,7 @@
     <button @click="open">open</button>
     <TimePicker @close='closePicker()' @leftBtn="left" 
     @rightBtn="right" @badTime='badTimeTip' :isShow="isShow" 
-    :bh="8" :bm="20" :eh="10" :em="20"></TimePicker>
+    :bh="bh" :bm="bm" :eh="10" :em="30"></TimePicker>
     <!-- 关闭时触发close事件　close事件中一定要把绑定的isShow设置为false
          点击左边按钮触发leftBtn事件　返回当前选中的时间
          点击右边按钮触发rightBtn事件　返回当前选中的时间
@@ -19,7 +19,9 @@ export default {
   name: 'app',
   data() {
     return {
-      isShow: true
+      isShow: true,
+      bh: 20,
+      bm: 30
     }
   },
   methods: {

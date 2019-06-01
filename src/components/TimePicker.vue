@@ -87,9 +87,9 @@ export default {
             this.close()
         },
         rightBtnClick() {
-            if (this.checkRightTime(this.begin, this.end)) {
-                return
-            }
+            // if (this.checkRightTime(this.begin, this.end)) {
+            //     return
+            // }
             this.$emit('rightBtn', {begin: this.begin, end: this.end})
             this.close()
         },
