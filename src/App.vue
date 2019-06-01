@@ -28,10 +28,10 @@ export default {
     },
     left(data) {
       this.isShow = false
-      alert(data)
+      alert('点击左边按钮，选中的时间是：' + data.begin.hour + ':' + data.begin.minute + ' － ' + data.end.hour + ':' + data.end.minute)
     },
     right(data) {
-      alert(data)
+      alert('点击右边按钮，选中的时间是：' + data.begin.hour + ':' + data.begin.minute + ' － ' + data.end.hour + ':' + data.end.minute)
     },
     badTimeTip() {
       alert('时间不符合要求')

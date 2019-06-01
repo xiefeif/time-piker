@@ -12,7 +12,6 @@
         </div>
         <span class="colon">:</span>
     </div>
-    
 </template>
 
 <script>
@@ -89,6 +88,13 @@ export default {
 </script>
 
 <style scoped>
+    * {
+        margin: 0;
+        padding:  0;
+    }
+    li {
+        list-style: none;
+    }
     .scrollContent {
         height: 100%;
         position: relative;
